@@ -1,5 +1,6 @@
 //authcontext here
 //don't forget to wrap in root layout
+"use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -7,11 +8,12 @@ import {
   signOut as firebaseSignOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "@/app/firebase/config";
+import { auth, db } from "@/app/utils/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,10 +22,10 @@ export function AuthProvider({ children }) {
       setUser(currentUser);
       setLoading(false);
     });
-    return unsubscribe();
+    return unsubscribe;
   }, []);
 
-  async function signUp(email, password) {
+  async function signUp(email, password, firstName, lastName) {
     try {
       //create a user
       const userCredential = await createUserWithEmailAndPassword(
@@ -31,6 +33,13 @@ export function AuthProvider({ children }) {
         email,
         password,
       );
+      const userid = userCredential.user.uid;
+      await setDoc(doc(db, "users", userid), {
+        firstName,
+        lastName,
+        email,
+        role: "admin",
+      });
       //return the user
       return { user: userCredential.user, error: null };
     } catch (error) {
