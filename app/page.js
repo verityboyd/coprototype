@@ -8,15 +8,23 @@
 "use client";
 import { useState } from "react";
 import SignUpForm from "./components/SignUpForm";
-import SiteHeader from "./components/SiteHeader";
+import Image from "next/image";
 
 export default function Page() {
   const [showLogin, setShowLogin] = useState(false);
   return (
-    <main>
-      <SiteHeader />
-      <header>Calgary Opera Archive</header>
-      <SignUpForm />
+    <main className="flex flex-row w-full min-h-screen">
+      <div className="flex flex-1 justify-center items-center">
+        <SignUpForm />
+      </div>
+      <div className="flex flex-1 justify-end">
+        <Image
+          src="/assets/placeholder.jpg"
+          alt="placeholder"
+          height={385}
+          width={385}
+        />
+      </div>
     </main>
   );
 }

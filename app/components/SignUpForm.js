@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useUserAuth } from "../contexts/AuthContext";
 import { useState } from "react";
+import Image from "next/image";
 
 //header with logo and title
 //email
@@ -60,7 +61,18 @@ export default function SignUpForm() {
 
   return (
     <section>
-      <div>Calgary Opera Archive Sign Up</div>
+      <div>
+        <div className="flex flex-row items-end">
+          <Image
+            src="/assets/Logo.png"
+            alt="Calgary Opera logo"
+            width={80}
+            height={80}
+            style={{ backgroundColor: "white" }}
+          />
+          <div className="font-bold">ARCHIVE SIGN UP</div>
+        </div>
+      </div>
       <div>
         <form onSubmit={formik.handleSubmit}>
           <label htmlFor="email">Email:</label>
@@ -71,6 +83,7 @@ export default function SignUpForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
+            className="border-2 rounded-lg"
           />
           {formik.touched.email && formik.errors.email ? (
             <div>{formik.errors.email}</div>
