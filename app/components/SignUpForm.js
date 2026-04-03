@@ -61,7 +61,7 @@ export default function SignUpForm() {
 
   return (
     <section>
-      <div>
+      <div className="p-5">
         <div className="flex flex-row items-end">
           <Image
             src="/assets/Logo.png"
@@ -73,9 +73,11 @@ export default function SignUpForm() {
           <div className="font-bold">ARCHIVE SIGN UP</div>
         </div>
       </div>
-      <div>
+      <div className="p-5">
         <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email" className="pr-2">
+            Email:
+          </label>
           <input
             id="email"
             name="email"
@@ -89,8 +91,13 @@ export default function SignUpForm() {
             <div>{formik.errors.email}</div>
           ) : null}
         </form>
-        <div>
-          <button type="submit">Sign Up</button>
+        <div className="flex flex-row justify-center pt-5">
+          <button
+            type="submit"
+            className="border-2 rounded-lg px-2 py-1 bg-[#9E1817] text-white"
+          >
+            SIGN UP
+          </button>
         </div>
       </div>
     </section>
