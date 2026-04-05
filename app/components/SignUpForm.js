@@ -68,6 +68,7 @@ export default function SignUpForm() {
             width={80}
             height={80}
             style={{ backgroundColor: "white" }}
+            loading="eager"
           />
           <div className="font-bold text-xl">ARCHIVE SIGN UP</div>
         </div>

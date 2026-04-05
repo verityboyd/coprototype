@@ -9,13 +9,15 @@
 import { useState } from "react";
 import SignUpForm from "./components/SignUpForm";
 import Image from "next/image";
+import LogInForm from "./components/LogInForm";
 
 export default function Page() {
   const [showLogin, setShowLogin] = useState(false);
   return (
     <main className="flex flex-row w-full min-h-screen">
       <div className="flex flex-1 justify-center items-center">
-        <SignUpForm />
+        {/*<SignUpForm />*/}
+        <LogInForm />
       </div>
       <div className="flex flex-1 justify-end">
         <Image
