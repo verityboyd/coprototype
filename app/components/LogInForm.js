@@ -8,11 +8,6 @@ import { useUserAuth } from "../contexts/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-//literally just email and pword
-//on submit, call login()
-//forget password but do not add reset functionality atp (can add popup success message)
-//needs error message to display if log in not successful
-
 export default function LogInForm() {
   const { login } = useUserAuth();
   const [error, setError] = useState(null);
@@ -39,7 +34,6 @@ export default function LogInForm() {
       }
       console.log("user logged in:", user);
       router.push("/search");
-      //add router.push to search page here
     },
   });
 
@@ -55,7 +49,7 @@ export default function LogInForm() {
             style={{ backgroundColor: "white" }}
             loading="eager"
           />
-          <div className="font-bold text-xl">ARCHIVE SIGN UP</div>
+          <div className="font-bold text-xl">ARCHIVE LOG IN</div>
         </div>
       </div>
       <div className="p-5">

@@ -1,10 +1,3 @@
-//this should be the login page and if login successful, push to "home"/search page
-//something like if(user) push("/home")
-//return {!user && <LogInPLz>}
-//remember: show sign in form on render, switch to log in using a useState if user clicks on that.
-//{isLogin? <LoginForm/> : <SignUpForm/>}
-//state defined here
-
 "use client";
 import { useState } from "react";
 import SignUpForm from "./components/SignUpForm";
@@ -16,8 +9,39 @@ export default function Page() {
   return (
     <main className="flex flex-row w-full min-h-screen">
       <div className="flex flex-1 justify-center items-center">
-        {/*<SignUpForm />*/}
-        <LogInForm />
+        <div className="flex flex-col">
+          {showLogin ? (
+            <>
+              <LogInForm />
+              <div className="flex flex-col items-center py-5">
+                <div className="flex flex-row">
+                  Don&apos;t have an account?
+                  <button
+                    onClick={() => setShowLogin(false)}
+                    className="font-bold text-[#9E1817] hover:underline pl-1"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <SignUpForm />
+              <div className="flex flex-col items-center py-5">
+                <div className="flex flex-row">
+                  Already have an account?
+                  <button
+                    onClick={() => setShowLogin(true)}
+                    className="font-bold text-[#9E1817] hover:underline pl-1"
+                  >
+                    Log In
+                  </button>
+                </div>
+              </div>
+            </>
+          )}{" "}
+        </div>
       </div>
       <div className="flex flex-1 justify-end">
         <Image
