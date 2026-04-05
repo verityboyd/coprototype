@@ -16,30 +16,19 @@ import Image from "next/image";
 //password must be at least x length
 //use object type of for re-enter
 
-/*
-const { user: newUser, error } = await signUp(
-      email,
-      password,
-      firstName,
-      lastName,
-    );
-    if (error) {
-      setError(error);
-      return;
-    }
-    console.log("user created:", newUser);
-  }
-*/
-
 export default function SignUpForm() {
   const { signUp } = useUserAuth();
   const [error, setError] = useState(null);
 
   const SignUpSchema = Yup.object({
-    email: Yup.string().email("Must be a valid Calgary Opera email"),
+    email: Yup.string()
+      .email("Must be a valid Calgary Opera email")
+      .required("Email cannot be blank"),
     firstName: Yup.string().required("First name cannot be blank"),
     lastName: Yup.string().required("Last name cannot be blank"),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Re-enter password is required"),
@@ -54,8 +43,18 @@ export default function SignUpForm() {
       confirmPassword: "",
     },
     validationSchema: SignUpSchema,
-    onSubmit: (values) => {
-      console.log("created", values);
+    onSubmit: async (values) => {
+      const { user: newUser, error } = await signUp(
+        values.email,
+        values.password,
+        values.firstName,
+        values.lastName,
+      );
+      if (error) {
+        setError(error);
+        return;
+      }
+      console.log("user created:", newUser);
     },
   });
 
@@ -70,14 +69,11 @@ export default function SignUpForm() {
             height={80}
             style={{ backgroundColor: "white" }}
           />
-          <div className="font-bold">ARCHIVE SIGN UP</div>
+          <div className="font-bold text-xl">ARCHIVE SIGN UP</div>
         </div>
       </div>
       <div className="p-5">
         <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="email" className="pr-2">
-            Email:
-          </label>
           <input
             id="email"
             name="email"
@@ -85,20 +81,83 @@ export default function SignUpForm() {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
-            className="border-2 rounded-lg"
+            placeholder="Calgary Opera Email"
+            className="border-2 rounded-lg px-3 py-2 w-80"
           />
           {formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
+            <div className="text-red-500 py-1">{formik.errors.email}</div>
           ) : null}
+          <div className="pt-2">
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.firstName}
+              placeholder="First Name"
+              className="border-2 rounded-lg px-3 py-2 w-80"
+            />
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <div className="text-red-500 py-1">{formik.errors.firstName}</div>
+            ) : null}
+          </div>
+          <div className="pt-2">
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.lastName}
+              placeholder="Last Name"
+              className="border-2 rounded-lg px-3 py-2 w-80"
+            />
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <div className="text-red-500 py-1">{formik.errors.lastName}</div>
+            ) : null}
+          </div>
+          <div className="pt-2">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              placeholder="Password"
+              className="border-2 rounded-lg px-3 py-2 w-80"
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div className="text-red-500 py-1">{formik.errors.password}</div>
+            ) : null}
+          </div>
+          <div className="pt-2">
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.confirmPassword}
+              placeholder="Re-enter Password"
+              className="border-2 rounded-lg px-3 py-2 w-80"
+            />
+            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+              <div className="text-red-500 py-1">
+                {formik.errors.confirmPassword}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex flex-row justify-center pt-10">
+            <button
+              type="submit"
+              className="border-2 rounded-lg px-2 py-1 bg-[#9E1817] text-white cursor-pointer hover:scale-110"
+            >
+              SIGN UP
+            </button>
+          </div>
         </form>
-        <div className="flex flex-row justify-center pt-5">
-          <button
-            type="submit"
-            className="border-2 rounded-lg px-2 py-1 bg-[#9E1817] text-white"
-          >
-            SIGN UP
-          </button>
-        </div>
       </div>
     </section>
   );

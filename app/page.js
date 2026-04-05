@@ -19,10 +19,10 @@ export default function Page() {
       </div>
       <div className="flex flex-1 justify-end">
         <Image
-          src="/assets/placeholder.jpg"
-          alt="placeholder"
-          height={385}
-          width={385}
+          src="/assets/signin.png"
+          alt="Midori Marsh in Calgary Opera's Don Giovanni (2024). Harder Lee Photography."
+          height={450}
+          width={700}
         />
       </div>
     </main>
