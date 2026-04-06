@@ -12,7 +12,7 @@ export default function SiteHeader() {
     <header className="bg-white border-b border-gray-100 relative z-[100]">
       <div className="max-w-7xl mx-auto px-10 h-24 flex justify-between items-center">
         
-        {/* 1. Logo Section - Scaled down (110px) with baseline text */}
+        {/* 1. Logo Section */}
         <Link href="/search">
           <div className="flex items-center gap-2 cursor-pointer group">
             <Image
@@ -29,31 +29,30 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        {/* 2. Center Navigation - Fixed Highlighting Logic */}
-        <div className="flex gap-12 text-[12px] font-bold tracking-[0.2em] items-center">
+        {/* 2. Center Navigation - Pure Black & High Contrast */}
+        <div className="flex gap-12 text-[12px] font-bold tracking-[0.2em] items-center text-black">
           <Link 
             href="/search" 
-            className={`transition-colors duration-200 hover:text-black ${
+            className={`transition-colors duration-200 hover:opacity-70 ${
               pathname === '/search' 
-                ? 'text-[#9E1817]' 
-                : 'text-[#A0AEC0]' 
+                ? 'text-[#9E1817]' // Brand Red only on /search
+                : 'text-black'     // Pure Black on all other pages
             }`}
           >
             SEARCH
           </Link>
           
-          <span className="text-[#CBD5E0] cursor-not-allowed">
+          <span className="cursor-default">
             DASHBOARD
           </span>
           
-          <span className="text-[#CBD5E0] cursor-not-allowed">
+          <span className="cursor-default">
             REPORTS
           </span>
         </div>
 
         {/* 3. Profile & Admin Pill */}
         <div className="flex items-center gap-6">
-          {/* Static Admin Pill */}
           <div className="bg-black text-white px-8 py-2 rounded-full text-[11px] font-bold tracking-widest uppercase cursor-default">
             Admin
           </div>
@@ -63,7 +62,6 @@ export default function SiteHeader() {
               onClick={() => setIsProfileOpen(!isProfileOpen)}
               className="flex items-center gap-3 group focus:outline-none"
             >
-              {/* Figma Circle Avatar Icon */}
               <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="20" cy="20" r="19" stroke="black" strokeWidth="2"/>
                 <circle cx="20" cy="15" r="6" stroke="black" strokeWidth="2"/>
@@ -75,7 +73,6 @@ export default function SiteHeader() {
               </span>
             </button>
 
-            {/* Dropdown Menu */}
             {isProfileOpen && (
               <>
                 <div className="fixed inset-0 z-[-1]" onClick={() => setIsProfileOpen(false)}></div>
