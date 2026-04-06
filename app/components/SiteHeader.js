@@ -12,7 +12,7 @@ export default function SiteHeader() {
     <header className="bg-white border-b border-gray-300 relative z-[100] mb-15">
       <div className="max-w-7xl mx-auto px-10 py-5 flex justify-between items-end">
         
-        {/* 1. Logo Section - Links to Search (Aurora's Page) */}
+        {/* 1. Logo Section - Only links to Search */}
         <Link href="/search">
           <div className="flex flex-row items-end cursor-pointer group">
             <Image
@@ -27,7 +27,7 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        {/* 2. Center Navigation (Unselected/Gray Logic) */}
+        {/* 2. Center Navigation (Only SEARCH is active) */}
         <div className="flex gap-8 pb-1 text-sm font-bold tracking-widest">
           <Link 
             href="/search" 
@@ -40,22 +40,18 @@ export default function SiteHeader() {
             SEARCH
           </Link>
           
-          <Link 
-            href="#" 
-            className="text-gray-400 hover:text-black transition-colors"
-          >
+          {/* Disabled Dashboard */}
+          <span className="text-gray-300 cursor-not-allowed">
             DASHBOARD
-          </Link>
+          </span>
           
-          <Link 
-            href="#" 
-            className="text-gray-400 hover:text-black transition-colors"
-          >
+          {/* Disabled Reports */}
+          <span className="text-gray-300 cursor-not-allowed">
             REPORTS
-          </Link>
+          </span>
         </div>
 
-        {/* 3. Profile Dropdown Section (Matches your Screengrab) */}
+        {/* 3. Profile Dropdown Section */}
         <div className="relative pb-1">
           <button 
             onClick={() => setIsProfileOpen(!isProfileOpen)}
@@ -78,13 +74,11 @@ export default function SiteHeader() {
           {/* Vertical Dropdown Menu */}
           {isProfileOpen && (
             <>
-              {/* Backdrop to close menu when clicking elsewhere */}
               <div className="fixed inset-0 z-[-1]" onClick={() => setIsProfileOpen(false)}></div>
               
               <div className="absolute right-0 mt-6 w-48 bg-white shadow-2xl border border-gray-100 rounded-sm py-8 z-[110] animate-in fade-in zoom-in duration-150">
                 <div className="flex flex-col items-center text-center space-y-6">
                   
-                  {/* Vertical Header: Icon + Admin Label */}
                   <div className="flex flex-col items-center gap-1 mb-2">
                     <svg xmlns="http://www.w3.org/2000/00/svg" className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -92,14 +86,12 @@ export default function SiteHeader() {
                     <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Admin</span>
                   </div>
 
-                  {/* Menu Links */}
-                  <Link 
-                    href="/profile" 
-                    className={`text-sm hover:text-[#9E1817] transition-colors ${pathname === '/profile' ? 'text-[#9E1817] font-bold' : 'text-black'}`}
-                  >
+                  {/* Disabled Profile Link */}
+                  <span className="text-sm text-gray-300 cursor-not-allowed">
                     Manage Profile
-                  </Link>
+                  </span>
 
+                  {/* ACTIVE LINK: Manage Archive */}
                   <Link 
                     href="/manage" 
                     onClick={() => setIsProfileOpen(false)}
@@ -108,12 +100,10 @@ export default function SiteHeader() {
                     Manage Archive
                   </Link>
 
-                  <Link 
-                    href="/settings" 
-                    className={`text-sm hover:text-[#9E1817] transition-colors ${pathname === '/settings' ? 'text-[#9E1817] font-bold' : 'text-black'}`}
-                  >
+                  {/* Disabled Settings Link */}
+                  <span className="text-sm text-gray-300 cursor-not-allowed">
                     Settings
-                  </Link>
+                  </span>
                 </div>
               </div>
             </>
