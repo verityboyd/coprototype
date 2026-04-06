@@ -113,7 +113,7 @@ export default function ManageArchive() {
     <main className="min-h-screen bg-white text-black font-sans pb-20">
       <SiteHeader />
 
-      <div className="max-w-7xl mx-auto px-10 -mt-10">
+      <div className="max-w-7xl mx-auto px-10 pt-5">
         {/* Breadcrumbs */}
         <div className="mb-6">
           <p className="text-[10px] uppercase tracking-widest font-bold">
