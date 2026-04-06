@@ -1,4 +1,3 @@
-//authcontext here
 //don't forget to wrap in root layout
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
