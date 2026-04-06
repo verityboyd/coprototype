@@ -10,7 +10,7 @@ export default function ManagePage() {
   const [showSeasonAccordion, setShowSeasonAccordion] = useState(false);
   const [error, setError] = useState(null);
 
-  // Use Case 1: All required and optional fields
+  // All required and optional fields
   const [formData, setFormData] = useState({
     title: "",
     composer: "",
@@ -21,12 +21,12 @@ export default function ManagePage() {
     duration: ""
   });
 
-  // Step 10: Populate seasons from DB
+  // Populate seasons from DB
   useEffect(() => {
     getSeasons().then(setSeasons);
   }, []);
 
-  // Alternate Flow 1.1: Cancel/Exit logic
+  // Alternate Flow: Cancel/Exit logic
   const handleCancel = () => {
     if (formData.title || formData.composer || formData.year) {
       if (window.confirm("Are you sure you want to cancel? Any data entered will be deleted.")) {
@@ -41,7 +41,7 @@ export default function ManagePage() {
     e.preventDefault();
     setError(null);
 
-    // Step 13: Year Format Validation (YYYY)
+    // Year Format Validation (YYYY)
     if (!/^\d{4}$/.test(formData.year)) {
       setError("Year must be in YYYY format.");
       return;
@@ -55,10 +55,10 @@ export default function ManagePage() {
       alert("Success: Production added to database.");
       
       if (addMore) {
-        // Alternate Flow 16.1: Reset fields but stay on page
+        // Alternate Flow: Reset fields but stay on page
         setFormData({ title: "", composer: "", librettist: "", season: "", year: "", language: "", duration: "" });
       } else {
-        // Step 18: Exit to search
+        // Exit to search
         router.push("/search");
       }
     }
@@ -80,7 +80,7 @@ export default function ManagePage() {
 
         <form onSubmit={(e) => handleSubmit(e, false)} className="space-y-8 bg-[#F9F8F6] p-10 rounded-sm border border-gray-200 shadow-sm">
           
-          {/* Section: Basic Info (Steps 3-8) */}
+          {/* Section: Basic Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Production Title *</label>
@@ -104,7 +104,7 @@ export default function ManagePage() {
             </div>
           </div>
 
-          {/* Section: Season Selection (Step 9 & Alt Flow 9.1) */}
+          {/* Section: Season Selection */}
           <div className="bg-white p-6 border rounded-lg">
             <label className="block text-[10px] font-bold text-gray-400 uppercase mb-2">Season *</label>
             <select required className="border-2 border-gray-300 rounded-lg p-3 w-full text-sm mb-3 outline-none focus:border-[#9E1817]" 
@@ -127,7 +127,7 @@ export default function ManagePage() {
             )}
           </div>
 
-          {/* Section: Technical Details (Steps 12-15) */}
+          {/* Technical Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Year (YYYY) *</label>
@@ -143,7 +143,7 @@ export default function ManagePage() {
 
           {error && <p className="text-red-600 text-xs italic bg-red-50 p-2 rounded">{error}</p>}
 
-          {/* Action Footer (Steps 16-19) */}
+          {/* Action Footer */}
           <div className="flex justify-between items-center pt-8 border-t border-gray-200 mt-10">
             <button type="button" onClick={handleCancel} className="text-gray-400 font-bold text-sm hover:text-black transition-colors">
               EXIT / CANCEL

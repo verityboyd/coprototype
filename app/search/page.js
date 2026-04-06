@@ -10,8 +10,6 @@ export default function SearchPage() {
   const [productions, setProductions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. We wrap fetchData in useCallback so its "identity" stays the same.
-  // This prevents the infinite loop error.
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
@@ -26,10 +24,8 @@ export default function SearchPage() {
     } finally {
       setLoading(false);
     }
-  }, []); // The empty array [] here is CRITICAL. It means "never recreate this function."
+  }, []);
 
-  // 2. The useEffect calls fetchData. 
-  // Since fetchData is now "stable" (thanks to useCallback), this won't trigger an error.
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -39,7 +35,7 @@ export default function SearchPage() {
       <SiteHeader />
 
       <div className="max-w-7xl mx-auto px-8 pt-0 -mt-12">
-        {/* Breadcrumbs with your color swap: Admin (Grey) / Archive Search (Red) */}
+        {/* Breadcrumbs */}
         <div className="mb-8">
           <p className="text-[10px] uppercase tracking-widest font-bold">
             <span className="text-gray-400">ADMIN / </span>
