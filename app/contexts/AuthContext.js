@@ -34,7 +34,7 @@ export function AuthContextProvider({ children }) {
       );
       const userid = userCredential.user.uid;
       await setDoc(doc(db, "users", userid), {
-        userId: user.uid,
+        userId: userid,
         firstName,
         lastName,
         email,
