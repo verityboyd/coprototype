@@ -12,7 +12,6 @@ export default function SiteHeader() {
     <header className="bg-white border-b border-gray-300 relative z-[100] mb-15">
       <div className="max-w-7xl mx-auto px-10 py-5 flex justify-between items-end">
         
-        {/* 1. Logo Section - Only links to Search */}
         <Link href="/search">
           <div className="flex flex-row items-end cursor-pointer group">
             <Image
@@ -27,7 +26,6 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        {/* 2. Center Navigation (Only SEARCH is active) */}
         <div className="flex gap-8 pb-1 text-sm font-bold tracking-widest">
           <Link 
             href="/search" 
@@ -51,7 +49,7 @@ export default function SiteHeader() {
           </span>
         </div>
 
-        {/* 3. Profile Dropdown Section */}
+        {/* Profile Dropdown Section */}
         <div className="relative pb-1">
           <button 
             onClick={() => setIsProfileOpen(!isProfileOpen)}
