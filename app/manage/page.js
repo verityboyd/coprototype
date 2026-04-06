@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase";
-import { addProduction, getSeasons } from "../_services/ArchiveServices"; 
+import { addProduction } from "../_services/ArchiveServices"; 
 import SiteHeader from "../components/SiteHeader";
 
 export default function ManageArchive() {
