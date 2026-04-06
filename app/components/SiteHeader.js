@@ -29,24 +29,22 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        {/* 2. Center Navigation - Pure Black & High Contrast */}
+        {/* 2. Center Navigation - Added pointer to all items */}
         <div className="flex gap-12 text-[12px] font-bold tracking-[0.2em] items-center text-black">
           <Link 
             href="/search" 
-            className={`transition-colors duration-200 hover:opacity-70 ${
-              pathname === '/search' 
-                ? 'text-[#9E1817]' // Brand Red only on /search
-                : 'text-black'     // Pure Black on all other pages
+            className={`transition-colors duration-200 hover:opacity-70 cursor-pointer ${
+              pathname === '/search' ? 'text-[#9E1817]' : 'text-black'
             }`}
           >
             SEARCH
           </Link>
           
-          <span className="cursor-default">
+          <span className="cursor-pointer hover:opacity-70 transition-opacity">
             DASHBOARD
           </span>
           
-          <span className="cursor-default">
+          <span className="cursor-pointer hover:opacity-70 transition-opacity">
             REPORTS
           </span>
         </div>
@@ -60,7 +58,7 @@ export default function SiteHeader() {
           <div className="relative">
             <button 
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center gap-3 group focus:outline-none"
+              className="flex items-center gap-3 group focus:outline-none cursor-pointer"
             >
               <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="20" cy="20" r="19" stroke="black" strokeWidth="2"/>
