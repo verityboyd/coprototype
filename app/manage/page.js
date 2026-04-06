@@ -29,23 +29,25 @@ export default function ManageArchive() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      const [prodSnap, seasonList, contribSnap, charSnap] = await Promise.all([
+      // 1. We fetch the snapshots for all three collections simultaneously
+      const [prodSnap, contribSnap, charSnap] = await Promise.all([
         getDocs(collection(db, "productions")),
-        getSeasons(),
         getDocs(collection(db, "contributors")),
         getDocs(collection(db, "characters"))
       ]);
 
+      // 2. Map the production data for your table
       setProductions(prodSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-      setSeasons(seasonList);
       
+      // 3. Update counts state with the real .size of the collections
       setCounts({
         productions: prodSnap.size,
-        contributors: contribSnap.size || 317,
-        characters: charSnap.size || 87
+        contributors: contribSnap.size,
+        characters: charSnap.size
       });
+
     } catch (err) {
-      console.error("Fetch error:", err);
+      console.error("Error fetching live counts:", err);
     } finally {
       setLoading(false);
     }
@@ -279,11 +281,20 @@ export default function ManageArchive() {
               {error && <p className="text-red-600 text-xs italic bg-red-50 p-2 border border-red-100 rounded-sm">{error}</p>}
 
               <div className="flex justify-between items-center pt-6 border-t border-gray-100 mt-4">
-                <button type="button" onClick={handleCancel} className="text-gray-400 font-bold text-[11px] uppercase tracking-widest hover:text-black">Exit / Cancel</button>
-                <div className="flex gap-4">
-                  <button type="button" onClick={(e) => handleSubmit(e, true)} className="border border-[#9E1817] text-[#9E1817] px-6 py-2 font-bold text-[11px] uppercase tracking-widest hover:bg-red-50">Add More</button>
-                  <button type="submit" className="bg-[#9E1817] text-white px-8 py-2 font-bold text-[11px] uppercase tracking-widest shadow-lg hover:bg-[#821413]">Save Production</button>
-                </div>
+                <button 
+                  type="button" 
+                  onClick={handleCancel} 
+                  className="text-gray-400 font-bold text-[11px] uppercase tracking-widest hover:text-black transition-colors"
+                >
+                  Exit / Cancel
+                </button>
+  
+                <button 
+                  type="submit" 
+                  className="bg-[#9E1817] text-white px-10 py-2 font-bold text-[11px] uppercase tracking-widest shadow-lg hover:bg-[#821413] transition-colors"
+                >
+                  Save Production
+                  </button>
               </div>
             </form>
           </div>
