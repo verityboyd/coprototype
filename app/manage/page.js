@@ -9,10 +9,10 @@ export default function ManageArchive() {
   // --- 1. State Management ---
   const [activeTab, setActiveTab] = useState("Productions");
   const [productions, setProductions] = useState([]);
-  const [seasons, setSeasons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false); 
-  const [counts, setCounts] = useState({ contributors: 317, productions: 0, characters: 87 });
+  const [counts, setCounts] = useState({ contributors: 0, productions: 0, characters: 0 });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [formData, setFormData] = useState({
     title: "",
@@ -148,26 +148,22 @@ export default function ManageArchive() {
         </div>
 
         {/* Search & Actions Row */}
-        <div className="flex gap-4 mb-6">
-          <div className="flex flex-1 border border-gray-300 rounded-sm overflow-hidden h-10">
+        <div className="flex gap-4 mb-10">
+          <div className="flex flex-1 border border-gray-200 rounded-sm overflow-hidden h-12 shadow-sm">
             <input 
-              className="flex-1 px-4 py-2 text-sm outline-none placeholder:text-gray-400 italic" 
-              placeholder="Search by name, year, season..." 
+              className="flex-1 px-6 py-2 text-sm outline-none placeholder:text-gray-400 italic" 
+              placeholder="Search the archive..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button className="bg-[#9E1817] text-white px-8 text-xs font-bold tracking-widest uppercase">Search</button>
+            <button className="bg-[#9E1817] text-white px-10 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-[#821413] transition-colors">
+              Search
+            </button>
           </div>
           
-          <select className="bg-[#F1EFED] border-none rounded-sm px-4 py-2 text-sm text-gray-500 font-medium outline-none min-w-[180px]">
-            <option>All Seasons</option>
-          </select>
-
-          <select className="bg-[#F1EFED] border-none rounded-sm px-4 py-2 text-sm text-gray-500 font-medium outline-none min-w-[180px]">
-            <option>All Languages</option>
-          </select>
-
           <button 
             onClick={() => setShowModal(true)}
-            className="bg-[#9E1817] text-white px-6 py-2 rounded-sm font-bold text-sm flex items-center gap-4 hover:bg-[#821413] transition-all"
+            className="bg-[#9E1817] text-white px-8 py-2 rounded-sm font-bold text-[11px] tracking-[0.15em] uppercase flex items-center gap-4 hover:bg-[#821413] transition-all shadow-md"
           >
             Add New <span className="text-lg">+</span>
           </button>
