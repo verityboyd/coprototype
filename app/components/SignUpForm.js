@@ -53,7 +53,7 @@ export default function SignUpForm() {
   return (
     <section>
       <div className="p-5">
-        <div className="flex flex-row items-end">
+        <div className="flex flex-row items-center">
           <Image
             src="/assets/Logo.png"
             alt="Calgary Opera logo"
@@ -62,7 +62,9 @@ export default function SignUpForm() {
             style={{ backgroundColor: "white" }}
             loading="eager"
           />
-          <div className="font-bold text-xl">ARCHIVE SIGN UP</div>
+          <div className="pl-1 font-bold text-xl translate-y-2 ">
+            ARCHIVE SIGN UP
+          </div>
         </div>
       </div>
       <div className="p-5">
@@ -75,7 +77,7 @@ export default function SignUpForm() {
             onBlur={formik.handleBlur}
             value={formik.values.email}
             placeholder="Calgary Opera Email"
-            className="border-2 rounded-lg px-3 py-2 w-80"
+            className="border-2 rounded-lg px-3 py-2 w-80 border-gray-400"
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="text-red-500 py-1">{formik.errors.email}</div>
@@ -89,7 +91,7 @@ export default function SignUpForm() {
               onBlur={formik.handleBlur}
               value={formik.values.firstName}
               placeholder="First Name"
-              className="border-2 rounded-lg px-3 py-2 w-80"
+              className="border-2 rounded-lg px-3 py-2 w-80 border-gray-400"
             />
             {formik.touched.firstName && formik.errors.firstName ? (
               <div className="text-red-500 py-1">{formik.errors.firstName}</div>
@@ -104,7 +106,7 @@ export default function SignUpForm() {
               onBlur={formik.handleBlur}
               value={formik.values.lastName}
               placeholder="Last Name"
-              className="border-2 rounded-lg px-3 py-2 w-80"
+              className="border-2 rounded-lg px-3 py-2 w-80 border-gray-400"
             />
             {formik.touched.lastName && formik.errors.lastName ? (
               <div className="text-red-500 py-1">{formik.errors.lastName}</div>
@@ -119,7 +121,7 @@ export default function SignUpForm() {
               onBlur={formik.handleBlur}
               value={formik.values.password}
               placeholder="Password"
-              className="border-2 rounded-lg px-3 py-2 w-80"
+              className="border-2 rounded-lg px-3 py-2 w-80 border-gray-400"
             />
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-500 py-1">{formik.errors.password}</div>
@@ -134,7 +136,7 @@ export default function SignUpForm() {
               onBlur={formik.handleBlur}
               value={formik.values.confirmPassword}
               placeholder="Re-enter Password"
-              className="border-2 rounded-lg px-3 py-2 w-80"
+              className="border-2 rounded-lg px-3 py-2 w-80 border-gray-400"
             />
             {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
               <div className="text-red-500 py-1">

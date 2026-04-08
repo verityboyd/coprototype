@@ -38,7 +38,7 @@ export default function LogInForm() {
   return (
     <section>
       <div className="p-5">
-        <div className="flex flex-row items-end">
+        <div className="flex flex-row items-center">
           <Image
             src="/assets/Logo.png"
             alt="Calgary Opera logo"
@@ -47,7 +47,9 @@ export default function LogInForm() {
             style={{ backgroundColor: "white" }}
             loading="eager"
           />
-          <div className="font-bold text-xl">ARCHIVE LOG IN</div>
+          <div className="font-bold text-xl translate-y-2 pl-1">
+            ARCHIVE LOG IN
+          </div>
         </div>
       </div>
       <div className="p-5">
@@ -60,7 +62,7 @@ export default function LogInForm() {
             onBlur={formik.handleBlur}
             value={formik.values.email}
             placeholder="Calgary Opera Email"
-            className="border-2 rounded-lg px-3 py-2 w-80"
+            className="border-2 rounded-lg px-3 py-2 w-80 border-gray-400"
           />
           {formik.touched.email && formik.errors.email ? (
             <div className="text-red-500 py-1">{formik.errors.email}</div>
@@ -74,7 +76,7 @@ export default function LogInForm() {
               onBlur={formik.handleBlur}
               value={formik.values.password}
               placeholder="Password"
-              className="border-2 rounded-lg px-3 py-2 w-80"
+              className="border-2 rounded-lg px-3 py-2 w-80 border-gray-400"
             />
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-500 py-1">{formik.errors.password}</div>
