@@ -43,13 +43,14 @@ export default function Page() {
           )}{" "}
         </div>
       </div>
-      <div className="flex flex-1 justify-end">
+      <div className="flex flex-1 justify-end items-center">
         <Image
           src="/assets/signin.png"
           alt="Midori Marsh in Calgary Opera's Don Giovanni (2024). Harder Lee Photography."
           height={450}
-          width={700}
+          width={650}
           loading="eager"
+          className="h-screen w-full object-cover"
         />
       </div>
     </main>
