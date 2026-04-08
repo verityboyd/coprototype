@@ -49,6 +49,7 @@ export default function Page() {
           alt="Midori Marsh in Calgary Opera's Don Giovanni (2024). Harder Lee Photography."
           height={450}
           width={700}
+          loading="eager"
         />
       </div>
     </main>

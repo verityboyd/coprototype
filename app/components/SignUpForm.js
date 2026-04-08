@@ -1,24 +1,15 @@
-//display by default
 "use client";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useUserAuth } from "../contexts/AuthContext";
 import { useState } from "react";
 import Image from "next/image";
-
-//header with logo and title
-//email
-//first name
-//last name
-//password
-//re enter
-//yup schema: in theory must fit regex @calgaryopera.com
-//password must be at least x length
-//use object type of for re-enter
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const { signUp } = useUserAuth();
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   const SignUpSchema = Yup.object({
     email: Yup.string()
@@ -55,6 +46,7 @@ export default function SignUpForm() {
         return;
       }
       console.log("user created:", newUser);
+      router.push("/search");
     },
   });
 
