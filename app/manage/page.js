@@ -11,6 +11,7 @@ export default function ManageArchive() {
   const [productions, setProductions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [isReviewing, setIsReviewing] = useState(false);
   const [counts, setCounts] = useState({
     contributors: 0,
     productions: 0,
@@ -69,8 +70,21 @@ export default function ManageArchive() {
   }, [fetchData]);
 
   // --- 3. Handlers ---
-  const handleSubmit = async (e, addMore = false) => {
+
+  const handleReview = (e) => {
     e.preventDefault();
+    setError(null);
+
+    // Basic validation before showing the summary
+    if (!/^\d{4}$/.test(formData.year)) {
+      setError("Year must be in YYYY format.");
+      return;
+    }
+
+    setIsReviewing(true); // Switches the modal view to the summary
+  };
+
+  const confirmAndSave = async () => {
     setError(null);
 
     // Auto-generate prodId based on current collection size + 1
@@ -81,21 +95,18 @@ export default function ManageArchive() {
       prodId: nextId,
     };
 
-    if (!/^\d{4}$/.test(formData.year)) {
-      setError("Year must be in YYYY format.");
-      return;
-    }
-
     const { error: apiError } = await addProduction(submissionData);
 
     if (apiError) {
       setError(apiError);
+      setIsReviewing(false); // Send them back to the form to fix the error
     } else {
       alert("Success: Production added to the archive.");
 
       await fetchData();
 
-      const resetForm = {
+      // Reset everything
+      setFormData({
         title: "",
         composer: "",
         librettist: "",
@@ -103,16 +114,21 @@ export default function ManageArchive() {
         year: "",
         language: "",
         duration: "",
-      };
-      setFormData(resetForm);
-
-      if (!addMore) {
-        setShowModal(false);
-      }
+      });
+      
+      setIsReviewing(false);
+      setShowModal(false);
     }
   };
 
   const handleCancel = () => {
+    // If they are in "Review" mode, just take them back to the form
+    if (isReviewing) {
+      setIsReviewing(false);
+      return;
+    }
+
+    // Standard cancel logic for the main form
     if (formData.title || formData.composer || formData.year) {
       if (window.confirm("Are you sure? Progress will be lost.")) {
         setShowModal(false);
