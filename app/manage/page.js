@@ -379,6 +379,20 @@ export default function ManageArchive() {
                   </div>
                 </div>
 
+                {/* --- RE-ADDED FIELDS --- */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Language</label>
+                    <input className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]" 
+                      value={formData.language} onChange={(e) => setFormData({ ...formData, language: e.target.value })} placeholder="e.g. Italian" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Duration</label>
+                    <input className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]" 
+                      value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })} placeholder="e.g. 2h 30m" />
+                  </div>
+                </div>
+
                 {error && <p className="text-red-600 text-xs italic bg-red-50 p-2 border border-red-100 rounded-sm">{error}</p>}
 
                 <div className="flex justify-between items-center pt-6 border-t border-gray-100 mt-4">
@@ -387,16 +401,16 @@ export default function ManageArchive() {
                 </div>
               </form>
             ) : (
-              /* --- 2. THE CONFIRMATION SUMMARY --- */
+              /* --- 2. THE CONFIRMATION SUMMARY (Now with Language/Duration) --- */
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                <p className="text-sm text-gray-600 italic">Please confirm the following details are correct before saving to the archive:</p>
+                <p className="text-sm text-gray-600 italic">Please confirm the following details are correct:</p>
                 
-                <div className="grid grid-cols-2 gap-y-6 bg-gray-50 p-6 rounded-sm border border-gray-100">
-                  <div className="col-span-2 md:col-span-1">
+                <div className="grid grid-cols-2 gap-y-6 bg-gray-50 p-6 rounded-sm border border-gray-100 text-left">
+                  <div className="col-span-1">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Title</p>
                     <p className="text-sm font-bold">{formData.title}</p>
                   </div>
-                  <div className="col-span-2 md:col-span-1">
+                  <div className="col-span-1">
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Composer</p>
                     <p className="text-sm font-bold">{formData.composer}</p>
                   </div>
@@ -405,12 +419,12 @@ export default function ManageArchive() {
                     <p className="text-sm font-bold">{formData.librettist}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Season</p>
-                    <p className="text-sm font-bold">{formData.season}</p>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Season / Year</p>
+                    <p className="text-sm font-bold">{formData.season} ({formData.year})</p>
                   </div>
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Year</p>
-                    <p className="text-sm font-bold">{formData.year}</p>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Lang / Duration</p>
+                    <p className="text-sm font-bold">{(formData.language || "N/A")} — {(formData.duration || "N/A")}</p>
                   </div>
                 </div>
 
