@@ -333,151 +333,93 @@ export default function ManageArchive() {
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-[200] p-4">
           <div className="bg-white p-10 rounded-lg max-w-2xl w-full shadow-2xl relative animate-in fade-in zoom-in duration-200">
             <button
-              onClick={() => setShowModal(false)}
+              onClick={() => { setShowModal(false); setIsReviewing(false); }}
               className="absolute top-6 right-8 text-gray-400 hover:text-black font-bold text-xl"
             >
               ×
             </button>
 
             <h2 className="text-[#9E1817] font-bold text-xl mb-1 uppercase tracking-tight">
-              Add New Production
+              {isReviewing ? "Review Details" : "Add New Production"}
             </h2>
             <div className="w-full h-[1px] bg-[#9E1817] mb-8"></div>
 
-            <form
-              onSubmit={(e) => handleSubmit(e, false)}
-              className="space-y-6"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Production Title *
-                  </label>
-                  <input
-                    required
-                    className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData({ ...formData, title: e.target.value })
-                    }
-                    placeholder="e.g. Tosca"
-                  />
+            {!isReviewing ? (
+              /* --- 1. THE INPUT FORM --- */
+              <form onSubmit={handleReview} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Production Title *</label>
+                    <input required className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]" 
+                      value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} placeholder="e.g. Tosca" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Composer *</label>
+                    <input required className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]" 
+                      value={formData.composer} onChange={(e) => setFormData({ ...formData, composer: e.target.value })} placeholder="e.g. Puccini" />
+                  </div>
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Composer *
-                  </label>
-                  <input
-                    required
-                    className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]"
-                    value={formData.composer}
-                    onChange={(e) =>
-                      setFormData({ ...formData, composer: e.target.value })
-                    }
-                    placeholder="e.g. Puccini"
-                  />
-                </div>
-              </div>
 
-              <div className="flex flex-col gap-1">
-                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                  Librettist(s) *
-                </label>
-                <input
-                  required
-                  className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]"
-                  value={formData.librettist}
-                  onChange={(e) =>
-                    setFormData({ ...formData, librettist: e.target.value })
-                  }
-                  placeholder="e.g. Luigi Illica, Giuseppe Giacosa"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Season *
-                  </label>
-                  <input
-                    required
-                    className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]"
-                    value={formData.season}
-                    onChange={(e) =>
-                      setFormData({ ...formData, season: e.target.value })
-                    }
-                    placeholder="e.g. 2001-2002"
-                  />
+                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Librettist(s) *</label>
+                  <input required className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]" 
+                    value={formData.librettist} onChange={(e) => setFormData({ ...formData, librettist: e.target.value })} placeholder="e.g. Luigi Illica" />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Year (YYYY) *
-                  </label>
-                  <input
-                    required
-                    className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]"
-                    value={formData.year}
-                    onChange={(e) =>
-                      setFormData({ ...formData, year: e.target.value })
-                    }
-                    placeholder="2001"
-                  />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Season *</label>
+                    <input required className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]" 
+                      value={formData.season} onChange={(e) => setFormData({ ...formData, season: e.target.value })} placeholder="e.g. 2001-2002" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Year (YYYY) *</label>
+                    <input required className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]" 
+                      value={formData.year} onChange={(e) => setFormData({ ...formData, year: e.target.value })} placeholder="2001" />
+                  </div>
+                </div>
+
+                {error && <p className="text-red-600 text-xs italic bg-red-50 p-2 border border-red-100 rounded-sm">{error}</p>}
+
+                <div className="flex justify-between items-center pt-6 border-t border-gray-100 mt-4">
+                  <button type="button" onClick={handleCancel} className="text-gray-400 font-bold text-[11px] uppercase tracking-widest hover:text-black transition-colors">Exit / Cancel</button>
+                  <button type="submit" className="bg-[#9E1817] text-white px-10 py-2 font-bold text-[11px] uppercase tracking-widest shadow-lg hover:bg-[#821413] transition-colors">Review Production</button>
+                </div>
+              </form>
+            ) : (
+              /* --- 2. THE CONFIRMATION SUMMARY --- */
+              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                <p className="text-sm text-gray-600 italic">Please confirm the following details are correct before saving to the archive:</p>
+                
+                <div className="grid grid-cols-2 gap-y-6 bg-gray-50 p-6 rounded-sm border border-gray-100">
+                  <div className="col-span-2 md:col-span-1">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Title</p>
+                    <p className="text-sm font-bold">{formData.title}</p>
+                  </div>
+                  <div className="col-span-2 md:col-span-1">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Composer</p>
+                    <p className="text-sm font-bold">{formData.composer}</p>
+                  </div>
+                  <div className="col-span-2">
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Librettist(s)</p>
+                    <p className="text-sm font-bold">{formData.librettist}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Season</p>
+                    <p className="text-sm font-bold">{formData.season}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Year</p>
+                    <p className="text-sm font-bold">{formData.year}</p>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center pt-6 border-t border-gray-100 mt-8">
+                  <button type="button" onClick={() => setIsReviewing(false)} className="text-gray-400 font-bold text-[11px] uppercase tracking-widest hover:text-black">Go Back / Edit</button>
+                  <button type="button" onClick={confirmAndSave} className="bg-black text-white px-10 py-2 font-bold text-[11px] uppercase tracking-widest shadow-lg hover:bg-gray-800 transition-colors">Confirm & Save to Archive</button>
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Language
-                  </label>
-                  <input
-                    className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]"
-                    value={formData.language}
-                    onChange={(e) =>
-                      setFormData({ ...formData, language: e.target.value })
-                    }
-                    placeholder="e.g. Italian"
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Duration
-                  </label>
-                  <input
-                    type="text"
-                    className="border border-gray-300 rounded-sm p-3 text-sm outline-none focus:border-[#9E1817]"
-                    value={formData.duration}
-                    onChange={(e) =>
-                      setFormData({ ...formData, duration: e.target.value })
-                    }
-                    placeholder="e.g. 2h 20m"
-                  />
-                </div>
-              </div>
-
-              {error && (
-                <p className="text-red-600 text-xs italic bg-red-50 p-2 border border-red-100 rounded-sm">
-                  {error}
-                </p>
-              )}
-
-              <div className="flex justify-between items-center pt-6 border-t border-gray-100 mt-4">
-                <button
-                  type="button"
-                  onClick={handleCancel}
-                  className="text-gray-400 font-bold text-[11px] uppercase tracking-widest hover:text-black transition-colors"
-                >
-                  Exit / Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  className="bg-[#9E1817] text-white px-10 py-2 font-bold text-[11px] uppercase tracking-widest shadow-lg hover:bg-[#821413] transition-colors"
-                >
-                  Save Production
-                </button>
-              </div>
-            </form>
+            )}
           </div>
         </div>
       )}
